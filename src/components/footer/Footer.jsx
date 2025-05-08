@@ -1,51 +1,76 @@
-import React from "react";
-import {
-    FaFacebookF,
-    FaInstagram,
-    FaTwitter,
-    FaLinkedin,
-} from "react-icons/fa";
-
-import ContentWrapper from "../contentWrapper/ContentWrapper";
-
-import "./style.scss";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { UserAuth } from '../../context/AuthContext';
+import './Footer.scss';
 
 const Footer = () => {
-    return (
-        <footer className="footer">
-            <ContentWrapper>
-                <ul className="menuItems">
-                    <li className="menuItem">Terms Of Use</li>
-                    <li className="menuItem">Privacy-Policy</li>
-                    <li className="menuItem">About</li>
-                    <li className="menuItem">Blog</li>
-                    <li className="menuItem">FAQ</li>
-                </ul>
-                <div className="infoText">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur.
-                </div>
-                <div className="socialIcons">
-                    <span className="icon">
-                        <FaFacebookF />
-                    </span>
-                    <span className="icon">
-                        <FaInstagram />
-                    </span>
-                    <span className="icon">
-                        <FaTwitter />
-                    </span>
-                    <span className="icon">
-                        <FaLinkedin />
-                    </span>
-                </div>
-            </ContentWrapper>
-        </footer>
-    );
+  const { user } = UserAuth();
+
+  return (
+    <footer className="footer">
+      <div className="footer-container">
+        <div className="footer-top">
+          <div className="footer-logo">
+            <Link to="/" className="logo">
+              <span className="logo-text">Theatre</span>
+              <span className="logo-dot">.</span>
+            </Link>
+            <p className="footer-slogan">
+              Your ultimate destination for movies and TV shows
+            </p>
+          </div>
+
+          <div className="footer-links">
+            <div className="footer-column">
+              <h3 className="footer-title">Navigation</h3>
+              <ul>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/explore/movie">Movies</Link></li>
+                <li><Link to="/explore/tv">TV Shows</Link></li>
+                {!user && <li><Link to="/welcome">Sign In</Link></li>}
+              </ul>
+            </div>
+
+            <div className="footer-column">
+              <h3 className="footer-title">Legal</h3>
+              <ul>
+                <li><Link to="/">Terms of Use</Link></li>
+                <li><Link to="/">Privacy Policy</Link></li>
+                <li><Link to="/">Cookie Policy</Link></li>
+              </ul>
+            </div>
+
+            <div className="footer-column">
+              <h3 className="footer-title">Connect</h3>
+              <div className="social-links">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                  <i className="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                  <i className="fab fa-twitter"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                  <i className="fab fa-instagram"></i>
+                </a>
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+                  <i className="fab fa-youtube"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p className="copyright">
+            &copy; {new Date().getFullYear()} Theatre.com. All rights reserved.
+          </p>
+          <div className="footer-credits">
+            <span>Powered by TMDB API</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;
